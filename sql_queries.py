@@ -10,43 +10,47 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 
 user_table_create = ("""
 CREATE TABLE users (
-                user_id int,
+                user_id int NOT NULL,
                 first_name varchar,
                 last_name varchar,
                 gender varchar,
-                level varchar                
+                level varchar ,
+                PRIMARY KEY (user_id)
         )
 """)
 
 song_table_create = ("""
 CREATE TABLE songs (
-                song_id varchar,
+                song_id varchar NOT NULL,
                 title varchar,
                 artist_id varchar,
                 year int,
-                duration float                   
+                duration float,
+                PRIMARY KEY (song_id)                
         )
 """)
 
 artist_table_create = ("""
 CREATE TABLE artists (
-                artist_id varchar,
+                artist_id varchar NOT NULL,
                 name varchar,
                 location varchar,
                 lattitude float,
-                longitude float 
+                longitude float,
+                PRIMARY KEY (artist_id)
         )
 """)
 
 time_table_create = ("""
 CREATE TABLE time (
-                start_time varchar,
+                start_time varchar NOT NULL,
                 hour int,
                 day int,
                 week int,
                 month int,
                 year int,
-                weekday int                
+                weekday int ,
+                PRIMARY KEY (start_time)
         )
 """)
 
@@ -54,7 +58,7 @@ CREATE TABLE time (
 
 songplay_table_create = ("""
 CREATE TABLE songplays (
-                songplay_id varchar,
+                songplay_id varchar NOT NULL,
                 start_time varchar,
                 user_id int,
                 level varchar,
@@ -62,7 +66,7 @@ CREATE TABLE songplays (
                 artist_id varchar,
                 session_id int,
                 location varchar,
-                user_agent varchar              
+                user_agent varchar
         )
 """)
 
@@ -79,7 +83,7 @@ INSERT INTO songplays (
                 session_id,
                 location,
                 user_agent)
-                VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s) ;
+                VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s) 
 """)
 
 user_table_insert = ("""
@@ -89,7 +93,8 @@ INSERT INTO users (
                 last_name,
                 gender,
                 level)
-                VALUES(%s, %s, %s, %s, %s);
+                VALUES(%s, %s, %s, %s, %s)
+                ON CONFLICT (user_id) DO UPDATE SET level=EXCLUDED.level
 """)
 
 song_table_insert = ("""
@@ -99,7 +104,8 @@ INSERT INTO songs (
                 artist_id,
                 year,
                 duration)
-                VALUES(%s, %s, %s, %s, %s) 
+                VALUES(%s, %s, %s, %s, %s)    
+                ON CONFLICT (song_id) DO NOTHING
 """)
 
 artist_table_insert = ("""
@@ -110,6 +116,7 @@ INSERT INTO artists (
                 lattitude,
                 longitude)
                 VALUES(%s, %s, %s, %s, %s)
+               ON CONFLICT (artist_id) DO NOTHING
 """)
 
 
@@ -122,7 +129,8 @@ INSERT INTO time (
                 month,
                 year,
                 weekday)
-                VALUES(%s, %s, %s, %s, %s, %s, %s) ;
+                VALUES(%s, %s, %s, %s, %s, %s, %s) 
+               ON CONFLICT (start_time) DO NOTHING
 """)
 
 # FIND SONGS

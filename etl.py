@@ -13,11 +13,11 @@ def process_song_file(cur, filepath):
     df = pd.read_json(filepath, lines=True)
 
     # insert song record
-    song_data = list(df.loc[:,["song_id","title", "artist_id", "year","duration"]].values[0])
+    song_data = list(df.loc[:,["song_id","title", "artist_id", "year","duration"]].drop_duplicates(subset='song_id', keep="first").values[0])
     cur.execute(song_table_insert, song_data)
     
     # insert artist record
-    artist_data = list(df.loc[:,["artist_id","artist_name", "artist_location", "artist_latitude","artist_longitude"]].values[0])
+    artist_data = list(df.loc[:,["artist_id","artist_name", "artist_location", "artist_latitude","artist_longitude"]].drop_duplicates(subset='artist_id', keep="first").values[0])
     cur.execute(artist_table_insert, artist_data)
 
 #The function lists all json files from the log folder, adds them to the data frame and executes the insert query defined in the sql_queries.py file one file at a time. 
@@ -35,13 +35,13 @@ def process_log_file(cur, filepath):
     time_data = np.transpose(np.array([df["ts"].values, t.dt.hour.values, t.dt.day.values, t.dt.week.values, t.dt.month.values, t.dt.year.values, t.dt.weekday.values]))
     column_labels = np.asarray(['start_time', 'hour', 'day', 'week', 'month', 'year', 'weekday'])
     time_df = pd.DataFrame(data= np.vstack((column_labels,time_data))[1:,:],
-                      columns = np.vstack((column_labels,time_data))[0,:])
+                      columns = np.vstack((column_labels,time_data))[0,:]).drop_duplicates(subset='start_time', keep="first")
 
     for i, row in time_df.iterrows():
         cur.execute(time_table_insert, list(row))
 
     # load user table
-    user_df = df.loc[:,["userId", "firstName", "lastName", "gender","level"]]
+    user_df = df.loc[:,["userId", "firstName", "lastName", "gender","level"]].drop_duplicates(subset='userId', keep="first")
 
     # insert user records
     for i, row in user_df.iterrows():
