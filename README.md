@@ -24,7 +24,7 @@ The start schema will be used which allows integrating new measures to the previ
   -  The dimension tables will represent categories the company wants to use in reporting i.e. users=subscribers, artists and songs. In addition, the time dimension was added as every record from the fact table will have a date assigned to the dim time table. This way we will store records granulated on a daily/hourly level but we we'll aslo have fast access to weekly, monthly, and yearly statistics.
   - The grain of the fact table is a song played per a user.
 ###### Physical model of the data warehouse 
-![Physial model](https://drive.google.com/file/d/1gS2NMaGG9cDRRERjtDZIyoobeJ-T4aj9/view?usp=sharing)
+![Physial model](https://github.com/eponkratova/data_modeling_with_postgres/blob/master/pics/screenshot.png)
 
 ### Practical implementation
 To identify data types to be used for the columns, the structure of the json files was inspected - a limitation is that only one file from each folder was reviewed, thus, not complete data profiling was done and not all cases of values of different lenght were considered:
@@ -73,7 +73,7 @@ df_song.dtypes
 | year             | int64   |
 
 After the semi- data profiling, the etl job was created and launched - see the steps and files used below.
-![Process](https://drive.google.com/file/d/1FH0cg58z5tYTBS_KgRJFH11BOMmk89-d/view?usp=sharing)
+![Process](https://github.com/eponkratova/data_modeling_with_postgres/blob/master/pics/screenshot2.png)
 
 ETL completion was tracked based on the number of input and output rows -
 | songplays | 6820 |
