@@ -1,16 +1,8 @@
 # Data Modeling with Postgres
 ---
 author: "EPonkratova"
-date: "April 15, 2019"
+date: "June 02, 2019"
 ---
-The project shows proper use of documentation.
-
-The README file includes a summary of the project, how to run the Python scripts, and an explanation of the files in the repository. Comments are used effectively and each function has a docstring.
-
-The project code is clean and modular.
-
-Scripts have an intuitive, easy-to-follow structure with code separated into logical functions. Naming for variables and functions follows the PEP8 style guidelines.
-
 
 ## Problem statement
 Sparkify wants to analyze the data they've been collecting on songs and user activity on their new music streaming app. The analytics team is particularly interested in understanding what songs users are listening to. Currently, they don't have an easy way to query their data, which resides in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
